@@ -7,18 +7,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>VIM_BASSIS - Hexo</title>
+  <title>CTF - Hexo</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
 
   
   
-  <meta name="description" content="VIM 编辑器基础
-VIM 编辑器的增删改查
-
-
-打开..."> 
   
   <meta name="author" content="TXXJ"> 
 
@@ -110,7 +105,7 @@ VIM 编辑器的增删改查
 
 <nav class="navbar">
   <div class="left"></div>
-  <div class="center">VIM_BASSIS</div>
+  <div class="center">标签</div>
   <div class="right">
     <i class="iconfont iconmenu j-navbar-menu"></i>
   </div>
@@ -158,101 +153,23 @@ VIM 编辑器的增删改查
   </div>
 </nav>
   <main id="main">
-  <div class="container" id="container">
-    <article class="article">
-  <div class="wrap">
-    <section class="head">
-  <img   class="lazyload" data-original="/images/vim.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
-  <div class="head-mask">
-    <h1 class="head-title">VIM_BASSIS</h1>
-    <div class="head-info">
-      <span class="post-info-item"><i class="iconfont iconcalendar"></i>October 25, 2020</span
-        class="post-info-item">
-      
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1012</span>
+  <section class="archive">
+    <div class="archive-container">
+      <div class="archive-post">
+        <h2 class="archive-total"># CTF</h2>
+        
+        
+        
+        <h3 class="archive-year">2020</h3>
+        
+        <div class="archive-item">
+          <a class="archive-date" href="/2020/10/26/CTFshow-web4/">10/26</a>
+          <a class="archive-title" href="/2020/10/26/CTFshow-web4/">CTFshow-web4</a>
+        </div>
+        
+      </div>
     </div>
-  </div>
-</section>
-    <section class="main">
-      <section class="content">
-        <h1 id="VIM-编辑器基础"><a href="#VIM-编辑器基础" class="headerlink" title="VIM 编辑器基础"></a>VIM 编辑器基础</h1><ol>
-<li>VIM 编辑器的增删改查</li>
-</ol>
-<ul>
-<li>打开VIM,进入编辑模式<br>  vim 文件名<br>  命令模式下按i,o,a<br>  i:在当前光标字符签加入<br>  I:在本行的行首插入<br>  o:在下一行插入<br>  O:在上一行插入<br>  a:在当前光标字符后插入<br>  A:在当前行的行尾插入</li>
-<li>保存当前文件<br>  在末行模式下:w保存<br>  在末行模式下:wq 保存并退出<br>  在末行模式下:q! 强制退出</li>
-<li>在当前标签页中打开新的文件<br>  在末行模式下:e 文件名</li>
-<li>打开新标签<br>  末行模式下:tabedit<br>  或者<br>  末行模式下:tabnew</li>
-<li>新标签命名<br>  在打开的新标签中的末行模式:w 文件名</li>
-<li>打开vim内嵌终端<br>  在末行模式下:terminal<br>  退出:ctrl+w 然后进来末行模式q!</li>
-<li>命令模式下的复制粘贴和剪切，<br>  复制为y,Y<br>  y是拷贝字符<br>  Y拷贝行<br>  粘粘为p,P<br>  p粘粘在字符前<br>  P粘粘在字符后<br>  剪切为d,D<br>  d剪切指定字符<br>  D剪切行</li>
-<li>命令模式下的三种可视模式<br>  字符可视<br>  按v进入然后移动光标选中字符<br>  行可视<br>  按V进来<br>  可视块<br>  ctrl+v进入</li>
-<li>命令模式下的自定义宏<br>  q进入定义宏，然后任意选中一个字符命名宏,让进行自定义的操作,退出进入命令模式按q退出定义宏状态<br>  使用宏, @(定义的名) 执行一次,n@(定义的名) 执行自定义次宏</li>
-<li>命令模式下的不同的插入方式<br>  在可视字符和可视行模式下操作基本相同<br>  在选中装态下进入末行模式下输入以下:<pre><code>  normal &lt;I|A&gt;(要输入的字符)
-  这是在行首或行尾添加字符,其他的删除炒作一基本上相同</code></pre>
-  可视块模式下的操作有一点不相同的<br>  在选中模式下输入I在行首插入字符然后ESC键就可以得到效果</li>
-<li>命令模式下回到上一个文件<br>  在命令模式下输入Ctrl+o退回到上一个文件位置</li>
-<li>命令模式下的查找字符<br>  在命令模式下输入/+字符可以匹配到相应的字符</li>
-<li>命令行模式下快速进来文件<br>  把光标移动到有正确路径的文件上按gf</li>
-<li>末行模式下打开分屏<br>  打开左右分屏<pre><code>  :set vsplit</code></pre>
-  打开上下分屏<pre><code>  :set split</code></pre>
-</li>
-<li>末行模式下的标签操作<br>  打开左一位的标签<pre><code>  :-tabnext</code></pre>
-  打开右一位的标签<pre><code>  :+tabnext</code></pre>
-</li>
-<li>末行模式下的执行命令<br>  在末行模式下!+系统命令 </li>
-<li>末行模式下基础命令<br>  :set number<br>  :set showcmd</li>
-</ul>
-
-      </section>
-      <section class="extra">
-        
-        <ul class="copyright">
-  
-  <li><strong>本文作者：</strong>TXXJ</li>
-  <li><strong>本文链接：</strong><a href="https://txxj.github.io/2020/10/25/VIM-BASSIS/index.html">https://txxj.github.io/2020/10/25/VIM-BASSIS/index.html</a></li>
-  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
-      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
-  
-</ul>
-        
-        
-        <section class="donate">
-  <div class="qrcode">
-    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
-  </div>
-  <div class="icon">
-    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
-    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
-  </div>
-</section>
-        
-        
-  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-        
-<nav class="nav">
-  
-    <a href="/2020/10/26/CTFshow-web4/"><i class="iconfont iconleft"></i>CTFshow-web4</a>
-  
-  
-    <a href="/2020/10/23/PHP%E5%AD%A6%E4%B9%A0%E7%9B%AE%E5%BD%95/">PHP学习目录<i class="iconfont iconright"></i></a>
-  
-</nav>
-
-      </section>
-      
-      <section class="comments">
-  
-  <div class="btn" id="comments-btn">查看评论</div>
-  
-  
-</section>
-      
-    </section>
-  </div>
-</article>
-  </div>
+  </section>
 </main>
   <footer class="footer">
   <div class="footer-social">
