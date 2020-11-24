@@ -7,14 +7,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>kippo搭建 - TXXJ</title>
+  <title>Rinetd联动kippo实验 - TXXJ</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
 
   
   
-  <meta name="description" content="Kippo 蜜罐搭建简介：kippo 中等交互的SSH..."> 
+  <meta name="description" content="Rinetd 联动 kippo 实验Rinetd 是一..."> 
   
   <meta name="author" content="TXXJ"> 
 
@@ -106,7 +106,7 @@
 
 <nav class="navbar">
   <div class="left"></div>
-  <div class="center">kippo搭建</div>
+  <div class="center">Rinetd联动kippo实验</div>
   <div class="right">
     <i class="iconfont iconmenu j-navbar-menu"></i>
   </div>
@@ -160,33 +160,48 @@
     <section class="head">
   <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
   <div class="head-mask">
-    <h1 class="head-title">kippo搭建</h1>
+    <h1 class="head-title">Rinetd联动kippo实验</h1>
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>November 24, 2020</span
         class="post-info-item">
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1000</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>979</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
-        <h2 id="Kippo-蜜罐搭建"><a href="#Kippo-蜜罐搭建" class="headerlink" title="Kippo 蜜罐搭建"></a>Kippo 蜜罐搭建</h2><h5 id="简介：kippo-中等交互的SSH蜜罐，提供了一个可供攻击者操作的shell，攻击者可以通过SSH登录蜜罐，并做一些常见的命令操作。"><a href="#简介：kippo-中等交互的SSH蜜罐，提供了一个可供攻击者操作的shell，攻击者可以通过SSH登录蜜罐，并做一些常见的命令操作。" class="headerlink" title="简介：kippo 中等交互的SSH蜜罐，提供了一个可供攻击者操作的shell，攻击者可以通过SSH登录蜜罐，并做一些常见的命令操作。"></a>简介：kippo 中等交互的SSH蜜罐，提供了一个可供攻击者操作的shell，攻击者可以通过SSH登录蜜罐，并做一些常见的命令操作。</h5><p>作用：可以引诱攻击者进入蜜罐，触发即使警告。可以让安全人员及时知道已经有攻击者渗透内网，知道那台服务器已经被控制，以及攻击者在蜜罐上做了哪些操作。</p>
-<h6 id="现在就开进行Kippo搭建工作"><a href="#现在就开进行Kippo搭建工作" class="headerlink" title="现在就开进行Kippo搭建工作"></a>现在就开进行Kippo搭建工作</h6><ol>
-<li><p>测试环境</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">Centos <span class="hljs-number">7</span><br></code></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>下载依赖环境<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">yum install -y gcc python-devel<br>easy_install -i https:<span class="hljs-regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="hljs-regexp">/pypi/</span>web<span class="hljs-regexp">/simple/</span> pip<br>pip install Twisted==<span class="hljs-number">13.1</span>.<span class="hljs-number">0</span><br>pip install pycrypto<br></code></pre></td></tr></table></figure></li>
-<li>搭建<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment">##下载地址：https://github.com/desaster/kippo.git</span><br><span class="hljs-comment">##因为github 下载太慢了，所以这里我选择使用码云来下载</span><br>mkdir /text<br>cd /text<br>git clone https:<span class="hljs-regexp">//gi</span>tee.com<span class="hljs-regexp">/YongboSec/</span>kippo.git<br><span class="hljs-comment">## 在使用kippo 的使用需要使用非root用户，所以需要创建一个用户</span><br>useradd -d /kippo kippo<br>mv <span class="hljs-regexp">/text/</span>kippo<span class="hljs-regexp">/* /</span>kippo<br>chown -R kippo:kippo /kippo<br></code></pre></td></tr></table></figure></li>
-<li>修改防火墙规则<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment">##先看看防火墙的状态</span><br>service firewalld status #开启状态<br>firewall-cmd --permanent <span class="hljs-attribute">--add-port</span>=2222/tcp<br>firewall-cmd --reload<br><span class="hljs-comment">##</span><br></code></pre></td></tr></table></figure></li>
-<li>启动测试<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-attribute">pc1</span>:<br>    后台启动<br>    su kippo<br>    cd ./kippo<br>    ./kippo.sh<br>    前台启动<br>    twistd -y kippo.tac -n<br><span class="hljs-attribute">pc2</span>:<br>    ssh -p <span class="hljs-number">2222</span> root<span class="hljs-variable">@pc1</span><br>    默认密码<span class="hljs-number">123456</span><br>    然后输入命令测试<br>   <br></code></pre></td></tr></table></figure></li>
-<li>重要文件<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs 1c">kippo.cfg       :修改kippo的相关配置<br><span class="hljs-built_in">log</span>/tty         ：查看系统日志<br><span class="hljs-built_in">log</span>/kippo.<span class="hljs-built_in">log</span>   ：查看相关的日志<br></code></pre></td></tr></table></figure>
-
+        <h1 id="Rinetd-联动-kippo-实验"><a href="#Rinetd-联动-kippo-实验" class="headerlink" title="Rinetd 联动 kippo 实验"></a>Rinetd 联动 kippo 实验</h1><p>Rinetd 是一款linux下的端口转发软件，这里我使用的目的是为了和kippo进行联合使用。这才能到达蜜罐的效果。</p>
+<p>测试实验：</p>
+<ol>
+<li><p>PC1 修改ssh服务端口，并且启用端口转发功能。把22端口转发到PC2的2222号端口</p>
+</li>
+<li><p>PC2 在2222号端口启动kippo蜜罐，并把日志信息存储到数据库中</p>
 </li>
 </ol>
-<p>做的时候忘了截图所以这篇博客没有图片</p>
-</li>
+<p>实验步骤：</p>
+<blockquote>
+<ul>
+<li> 下载安装rinetd</li>
+<li> 修改SSH 启动端口</li>
+<li>  配置端口转发规则</li>
+</ul>
+</blockquote>
+<h4 id="下载安装rinetd"><a href="#下载安装rinetd" class="headerlink" title="下载安装rinetd"></a>下载安装rinetd</h4><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">yum</span> <span class="hljs-string">-y install gcc git</span><br><span class="hljs-attr">chmod</span> <span class="hljs-string">/test</span><br><span class="hljs-attr">cd</span> <span class="hljs-string">/test</span><br><span class="hljs-attr">git</span> <span class="hljs-string">clone https://gitee.com/maoren/rinetd.git</span><br><span class="hljs-attr">cd</span> <span class="hljs-string">rinetd</span><br><span class="hljs-attr">sed</span> <span class="hljs-string">-i &#x27;s/65536/65535/g&#x27; rinetd.c</span><br><span class="hljs-attr">mkdir</span> <span class="hljs-string">/usr/man</span><br><span class="hljs-attr">make</span><br><span class="hljs-attr">make</span> <span class="hljs-string">install</span><br></code></pre></td></tr></table></figure>
+<h4 id="配置SSH-启动端口"><a href="#配置SSH-启动端口" class="headerlink" title="配置SSH 启动端口"></a>配置SSH 启动端口</h4><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">vim</span> <span class="hljs-string">/etc/ssh/sshd_config</span><br><span class="hljs-comment">##修改port</span><br><span class="hljs-attr">port</span> = <span class="hljs-string">2223</span><br><span class="hljs-comment">#修改selinux,不然ssh 服务无法启动</span><br><span class="hljs-comment">#下载修改的工具</span><br><span class="hljs-attr">yum</span> <span class="hljs-string">install -y policycoreutils-python.x86_64</span><br><span class="hljs-comment">#查看一下Selinux 允许的ssh端口</span><br><span class="hljs-attr">semanage</span> <span class="hljs-string">port -l | grep ssh</span><br><span class="hljs-attr">semanage</span> <span class="hljs-string">port -a -t ssh_port_t -p tcp 2223</span><br><span class="hljs-attr">semanage</span> <span class="hljs-string">port -l | grep ssh</span><br><span class="hljs-attr">service</span> <span class="hljs-string">sshd restart //重新启动ssh服务</span><br></code></pre></td></tr></table></figure>
+<h4 id="配置端口转发规则"><a href="#配置端口转发规则" class="headerlink" title="配置端口转发规则"></a>配置端口转发规则</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">vim</span> /etc/rinetd.conf<br><span class="hljs-comment">#添加需要转发的地址</span><br><span class="hljs-attribute">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span> <span class="hljs-number">22</span> pc<span class="hljs-number">2</span> <span class="hljs-number">2222</span><br><span class="hljs-comment">#（本机ip） (本机端口) （目标地址） （目标端口）</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">rinetd -d <span class="hljs-regexp">/etc/</span>rinetd.conf<br>添加开机自启<br>echo rinetd &gt;&gt; <span class="hljs-regexp">/etc/</span>rc.local<br></code></pre></td></tr></table></figure>
+<p>查看端口监听状态</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">netstat -nap</span><br></code></pre></td></tr></table></figure>
+<p><img   class="lazyload" data-original="https://images.cnblogs.com/cnblogs_com/txxj/1870491/o_201124152707%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3%E7%9B%91%E5%90%AC.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<h4 id="进行测试"><a href="#进行测试" class="headerlink" title="进行测试"></a>进行测试</h4><p>通过pc3进行ssh连接<br><img   class="lazyload" data-original="https://images.cnblogs.com/cnblogs_com/txxj/1870491/o_201124152715%E8%BF%9E%E6%8E%A5%E8%9C%9C%E7%BD%90.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<p>进入pc2查看蜜罐的日志<br><img   class="lazyload" data-original="https://images.cnblogs.com/cnblogs_com/txxj/1870491/o_201124152712%E8%BF%9E%E6%8E%A5%E6%88%90%E5%8A%9F.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<p>– 结束实验  –</p>
+<p>本次实验结束后，可以得出kippo蜜罐还是有一定的缺点</p>
+<ol>
+<li>系统的命令不多</li>
+<li>在蜜罐中exit退出，并不能真的退出</li>
 </ol>
 
       </section>
@@ -195,7 +210,7 @@
         <ul class="copyright">
   
   <li><strong>本文作者：</strong>TXXJ</li>
-  <li><strong>本文链接：</strong><a href="https://txxj.github.io/kippo%E6%90%AD%E5%BB%BA/index.html">https://txxj.github.io/kippo%E6%90%AD%E5%BB%BA/index.html</a></li>
+  <li><strong>本文链接：</strong><a href="https://txxj.github.io/Rinetd%E8%81%94%E5%8A%A8kippo%E5%AE%9E%E9%AA%8C/index.html">https://txxj.github.io/Rinetd%E8%81%94%E5%8A%A8kippo%E5%AE%9E%E9%AA%8C/index.html</a></li>
   <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
       rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
   
@@ -213,13 +228,13 @@
 </section>
         
         
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-%E6%9C%8D%E5%8A%A1/" rel="tag">Linux 服务</a></li></ul>
+
         
 <nav class="nav">
   
-    <a href="/Rinetd%E8%81%94%E5%8A%A8kippo%E5%AE%9E%E9%AA%8C/"><i class="iconfont iconleft"></i>Rinetd联动kippo实验</a>
   
-  
-    <a href="/test/">test<i class="iconfont iconright"></i></a>
+    <a href="/kippo%E6%90%AD%E5%BB%BA/">kippo搭建<i class="iconfont iconright"></i></a>
   
 </nav>
 
